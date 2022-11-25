@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 import Close from './cancel.png'
+import Plus from './plus.png'
+import Minus from './minus-button.png'
 
 const productImgs = [
   'https://cdn.shoplightspeed.com/shops/655187/files/39922165/1652x1652x2/adidas-adidas-yeezy-boost-750-light-brown-gum-choc.jpg',
@@ -48,22 +50,47 @@ function SalesPage() {
       <div className='reviews-section'>
       </div>
       <div className='cta-section'>
-        <a>Buy now ($2,500)</a>
+        <a onClick={() => {
+          setOpenModal(true)
+        }} >Buy now ($2,500)</a>
       </div>
-      {
-        openModal 
-        ?
-        (
-          <div className='img-modal' style={{
-            backgroundImage: `url(${selectedImg})`
-          }}>
-            <div style={{width:'32px',height: '32px',position:'absolute',top:0}} />
-            <div className='img-modal-div' style={{backgroundImage: `url(${selectedImg})`}} alt='modal-img' />
-          </div>    
-        )
-        :
-        null
-      }
+      <div className='items-modal' style={{
+        display: !openModal?'none':'block'
+      }}>     
+      <div className='items-container animate__animated animate__slideInUp'>
+          <div className='items-title'>
+            <span>Order Items (125)</span>
+          </div>
+          <div className='item-grid'>
+            <div className='item-grid-cont'>
+              <img className='item-img' src={productImgs[0]} alt='' style={{width:'72px',height:'72px'}} />
+              <div className='item-desc'>
+                <span>
+                Contrary to popular belief, Lorem Ipsum is not simply random text. 
+                It has roots in a piece of classical Latin 
+                literature from 45 BC, making it over 
+                2000 years old.
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className='counter-grid'>
+            <h3>Ksh 3,500</h3>
+            <div className='counter'>
+              <div style={{backgroundImage: `url(${Minus})`, width: '28px', height: '28px', backgroundPosition: 'center', backgroundSize: 'contain'}}></div>
+                1
+              <div style={{backgroundImage: `url(${Plus})`, width: '28px', height: '28px',backgroundPosition: 'center', backgroundSize: 'contain'}}></div>
+            </div>
+          </div>
+          <div style={{display:'flex', justifyContent: 'space-around'}}>
+            <div className='item-cancel' onClick={() => {
+              setOpenModal(false)
+            }} >Cancel</div>
+            <div className='item-cta'>
+              <span>Proceed (Ksh 3,500)</span></div>
+            </div>
+          </div>
+      </div>
     </div>
   );
 }
