@@ -19,7 +19,6 @@ function SalesPage() {
       }}
       onClick={() => {
         setSelectedImg('https://images.solecollector.com/complex/images/c_fill,dpr_2.0,h_182,q_70,w_328/yik1lb39kis2w6alxvuo/chocolate-yeezy-boosts-on-feet-1')
-        setOpenModal(true)
       }}
       >
       </div>
@@ -39,7 +38,6 @@ function SalesPage() {
               return(
                 <div onClick={() => {
                   setSelectedImg(img)
-                  setOpenModal(true)
                 }} className='img' style={{backgroundImage: `url(${img})`}}>
                 </div>
               )
