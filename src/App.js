@@ -14,6 +14,7 @@ const productImgs = [
 function SalesPage() {
   const [selectedImg,setSelectedImg] = React.useState('')
   const [openModal, setOpenModal] = React.useState(false)
+  const [continueCheckOut,setContinueCheckout] = React.useState(false)
   return (
     <div className="Container">
       <div className='hero' style={{
@@ -57,7 +58,7 @@ function SalesPage() {
       <div className='items-modal' style={{
         display: !openModal?'none':'block'
       }}>     
-      <div className='items-container animate__animated animate__slideInUp'>
+      <div style={{display: !continueCheckOut?'grid':'none'}} className='items-container animate__animated animate__slideInUp'>
           <div className='items-title'>
             <span>Order Items (125)</span>
           </div>
@@ -86,10 +87,33 @@ function SalesPage() {
             <div className='item-cancel' onClick={() => {
               setOpenModal(false)
             }} >Cancel</div>
-            <div className='item-cta'>
+            <div className='item-cta' onClick={() => {
+              setContinueCheckout(true)
+            }}>
               <span>Proceed (Ksh 3,500)</span></div>
             </div>
           </div>
+
+      <div style={{display: continueCheckOut?'grid':'none'}} className='contact-container animate__animated animate__slideInUp'>
+        <div className='items-title'>
+            <span>Order details</span>
+            <img onClick={() => {
+              setOpenModal(false)
+              setContinueCheckout(false)
+            }} src={Close} style={{width: '28px',height: '28px',cursor:'pointer'}} />
+          </div>
+          <div className='item-grid'>
+           <form>
+              <input placeholder='Name' type='text' /><br />
+              <input placeholder='Phone No.' type='number' /><br />
+              <input placeholder='Email' type='email' />
+              <br />
+              <div className='item-cta' style={{width: '40%', marginLeft: '0.85rem',marginTop: '1.75rem'}}>
+                <span>Make order</span>
+            </div>
+           </form>
+          </div>
+        </div>
       </div>
     </div>
   );
