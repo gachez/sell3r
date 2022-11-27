@@ -1,5 +1,6 @@
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Admin from "./Admin";
 import SalesPage from "./App";
 
 export default function App() {
@@ -7,6 +8,8 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<SalesPage/>}>
+        </Route>
+        <Route path="/admin" element={<Admin/>}>
         </Route>
       </Routes>
     </BrowserRouter>

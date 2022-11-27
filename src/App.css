@@ -9,6 +9,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 8px;
+  display: grid;
 }
 .desc-section{
   width: 100%;
@@ -67,7 +68,7 @@
   background-color: #0033ff;
   border-radius: 16px;
   height: 64px;
-  display: flex;
+  display: grid;
   color: aliceblue;
   font-family: 'Open sans';
 }
@@ -179,6 +180,10 @@
 }
 .item-cta span{
   font-family: 'Open sans';
+}
+.item-cta small{
+  font-family: 'Open sans';
+  font-size: 8px;
 }
 .contact-container{
   position: absolute;

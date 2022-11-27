@@ -53,7 +53,9 @@ function SalesPage() {
       <div className='cta-section'>
         <a onClick={() => {
           setOpenModal(true)
-        }} >Buy now ($2,500)</a>
+        }} ><b>Buy now ($2,500)</b></a>
+        
+        <small style={{color: '#fff',width: '100%',textAlign: 'center'}}>Powered by <b>Sell3r</b></small>
       </div>
       <div className='items-modal' style={{
         display: !openModal?'none':'block'
@@ -90,7 +92,8 @@ function SalesPage() {
             <div className='item-cta' onClick={() => {
               setContinueCheckout(true)
             }}>
-              <span>Proceed (Ksh 3,500)</span></div>
+              <span>Proceed (Ksh 3,500)</span>
+              </div>
             </div>
           </div>
 
