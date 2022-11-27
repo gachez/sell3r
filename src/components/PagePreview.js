@@ -24,11 +24,8 @@ export function PagePreview(props){
             <img style={{margin:'auto'}} src={Plus} alt='add' width='24px' height='24px' />
         </div>
         <div className='desc-section'>
-          <h1>Adidas Yeezy Boost 750 Chocolate/Gum</h1>
-          <p style={{padding:'8px'}} >If you’re in a rush, 
-            the side zipper might come in handy, 
-            while a perforated vamp was chosen to help regulate your foot’s 
-            temperature. 
+          <h1>Enter product name...</h1>
+          <p style={{padding:'8px'}} >Enter product description 
              </p>
         </div>
         <div className='img-section'>
