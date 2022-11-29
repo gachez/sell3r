@@ -64,6 +64,14 @@ export default function NavBarMUI() {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+  const [signInUser, setSignedInUser] = React.useState('')
+
+
+  React.useEffect(() => {
+    const user = localStorage.getItem('user')
+    setSignedInUser(JSON.parse(user).username)
+  },[])
+
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -98,6 +106,7 @@ export default function NavBarMUI() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
+      <MenuItem>User: {signInUser}</MenuItem>
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
@@ -120,14 +129,6 @@ export default function NavBarMUI() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
       <MenuItem>
         <IconButton
           size="large"
@@ -157,7 +158,7 @@ export default function NavBarMUI() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" style={{background: 'rgba(0,0,0,1)'}}>
         <Toolbar>
           <IconButton
             size="large"
@@ -176,22 +177,8 @@ export default function NavBarMUI() {
           >
             Sell3r
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
             <IconButton
               size="large"
               aria-label="show 17 new notifications"

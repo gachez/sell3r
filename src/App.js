@@ -3,44 +3,81 @@ import './App.css';
 import Close from './cancel.png'
 import Plus from './plus.png'
 import Minus from './minus-button.png'
-
-const productImgs = [
-  'https://cdn.shoplightspeed.com/shops/655187/files/39922165/1652x1652x2/adidas-adidas-yeezy-boost-750-light-brown-gum-choc.jpg',
-  'https://i.ebayimg.com/images/g/slEAAOSwTZZiXLVe/s-l1600.jpg',
-  'https://sneakernews.com/wp-content/uploads/2016/10/light-brown-yeezy-750-release-info-2.jpg',
-  'https://cdn.luxatic.com/wp-content/uploads/2021/01/Most-Expensive-Yeezy-Shoes.jpg'
-]
+import axios from 'axios';
+import { Modal } from 'react-bootstrap';
+import ModalImage from "react-modal-image";
+import { useParams } from "react-router";
+import { Config } from './config';
 
 function SalesPage() {
   const [selectedImg,setSelectedImg] = React.useState('')
+  const [imgModal, setImgModal] = React.useState(false)
+  const [product,setProduct] = React.useState({})
+  const [isLoaded, setIsLoaded] = React.useState(false)
   const [openModal, setOpenModal] = React.useState(false)
   const [continueCheckOut,setContinueCheckout] = React.useState(false)
-  return (
+
+  let { username,id } = useParams();
+
+  function handleImgModalShow(){
+    setImgModal(true)
+  }
+
+  function handleImgModalClose(){
+    setImgModal(false)
+  }
+
+  React.useEffect(() => {
+    fetchProductDetails()
+  },[])
+
+  function fetchProductDetails() {
+    const userId = id
+    axios.get(Config.API_URI+'/products',{
+      params: {
+        userId: userId
+      }
+    })
+    .then(res => {
+      setProduct(res.data)
+      setIsLoaded(true)
+    })
+    .catch(err => {
+      alert(err)
+    })
+  }
+
+  return isLoaded === false ?
+  (
+    <div style={{width: '100vw',height: '100vh', display: 'flex'}}>
+      <h2 style={{margin: 'auto'}}>Loading.....</h2>
+    </div>
+  )
+  :
+  (
     <div className="Container">
       <div className='hero' style={{
-        backgroundImage: "url('https://images.solecollector.com/complex/images/c_fill,dpr_2.0,h_182,q_70,w_328/yik1lb39kis2w6alxvuo/chocolate-yeezy-boosts-on-feet-1')"
+        backgroundImage: `url(${product?.heroImg})`
       }}
       onClick={() => {
-        setSelectedImg('https://images.solecollector.com/complex/images/c_fill,dpr_2.0,h_182,q_70,w_328/yik1lb39kis2w6alxvuo/chocolate-yeezy-boosts-on-feet-1')
       }}
       >
       </div>
       <div className='desc-section'>
-        <h1>Adidas Yeezy Boost 750 Chocolate/Gum</h1>
-        <p>If you’re in a rush, 
-          the side zipper might come in handy, 
-          while a perforated vamp was chosen to help regulate your foot’s 
-          temperature. 
+        <h1>{product?.name}</h1>
+        <p>
+          {product?.description}
            </p>
       </div>
       <div className='img-section'>
-        <h2>Images ({productImgs.length})</h2>
+        <h2>Images ({product?.productImgs?.length})</h2>
         <div className='img-container'>
           {
-            productImgs.map((img,i) => {
+            product?.productImgs?.map((img,i) => {
               return(
                 <div onClick={() => {
                   setSelectedImg(img)
+                  handleImgModalShow()
                 }} className='img' style={{backgroundImage: `url(${img})`}}>
                 </div>
               )
@@ -53,7 +90,7 @@ function SalesPage() {
       <div className='cta-section'>
         <a onClick={() => {
           setOpenModal(true)
-        }} ><b>Buy now ($2,500)</b></a>
+        }} ><b>Buy now ({product?.currency} {product?.price})</b></a>
         
         <small style={{color: '#fff',width: '100%',textAlign: 'center'}}>Powered by <b>Sell3r</b></small>
       </div>
@@ -66,19 +103,16 @@ function SalesPage() {
           </div>
           <div className='item-grid'>
             <div className='item-grid-cont'>
-              <img className='item-img' src={productImgs[0]} alt='' style={{width:'72px',height:'72px'}} />
+              <img className='item-img' src={product.heroImg} alt='' style={{width:'72px',height:'72px'}} />
               <div className='item-desc'>
                 <span>
-                Contrary to popular belief, Lorem Ipsum is not simply random text. 
-                It has roots in a piece of classical Latin 
-                literature from 45 BC, making it over 
-                2000 years old.
+                  {product.description}
                 </span>
               </div>
             </div>
           </div>
           <div className='counter-grid'>
-            <h3>Ksh 3,500</h3>
+            <h3>{product.currency} {product.price}</h3>
             <div className='counter'>
               <div style={{backgroundImage: `url(${Minus})`, width: '28px', height: '28px', backgroundPosition: 'center', backgroundSize: 'contain'}}></div>
                 1
@@ -92,7 +126,7 @@ function SalesPage() {
             <div className='item-cta' onClick={() => {
               setContinueCheckout(true)
             }}>
-              <span>Proceed (Ksh 3,500)</span>
+              <span>Proceed ({product.currency} {product.price})</span>
               </div>
             </div>
           </div>
@@ -118,6 +152,28 @@ function SalesPage() {
           </div>
         </div>
       </div>
+
+      <Modal
+      show={imgModal}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      onHide={handleImgModalClose}
+      centered
+    >
+      <Modal.Header closeButton>
+      </Modal.Header>
+      <Modal.Body>
+          <div style={{
+            width: '100%',
+            height: '70vh',
+            backgroundImage: `url(${selectedImg})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}>
+          </div>
+      </Modal.Body>
+    </Modal>
     </div>
   );
 }

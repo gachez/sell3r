@@ -15,24 +15,26 @@
   width: 100%;
   height: auto;
   border-radius: 8px;
+  padding: 1rem;
 }
 
 .desc-section h1{
-  font-family: 'Open sans';
+  font-family: 'Fira sans';
   text-align: left;
   font-size: 24px;
 }
 .desc-section p{
-  font-family: 'Open sans';
+  font-family: 'Fira sans';
   text-align: left;
 }
 
 .img-section{
   width: 100%;
   height: 30%;
+  padding: 1rem;
 }
 .img-section h2{
-  font-family: 'Open sans';
+  font-family: 'Fira sans';
   font-size: 20px;
 }
 .img-container{
@@ -70,7 +72,7 @@
   height: 64px;
   display: grid;
   color: aliceblue;
-  font-family: 'Open sans';
+  font-family: 'Fira sans';
 }
 .cta-section a{
   margin: auto;
@@ -120,7 +122,7 @@
   align-items: center;
   justify-content: space-around;
   font-size: 1.25rem;
-  font-family: 'Open sans';
+  font-family: 'Fira sans';
   border-bottom: solid 1px rgba(0,0,0,0.1);
 }
 .item-grid{
@@ -135,7 +137,7 @@
 }
 .item-desc{
   width: 60%;
-  font-family: 'Open sans';
+  font-family: 'Fira sans';
   font-size: 0.75rem;
 }
 .counter-grid{
@@ -148,7 +150,7 @@
 }
 .counter-grid h3{
   width: fit-content;
-  font-family: 'Open sans';
+  font-family: 'Fira sans';
 }
 .counter{
   width: 30%;
@@ -156,7 +158,7 @@
   align-items: center;
   justify-content: space-between;
   margin-right: 3.5rem;
-  font-family: 'Open sans';
+  font-family: 'Fira sans';
 }
 .item-cancel{
   padding: 1rem;
@@ -166,7 +168,7 @@
   text-align: center;
   align-self: center;  
   display: grid;
-  font-family: 'Open sans';
+  font-family: 'Fira sans';
 }
 .item-cta{
   padding: 0.75rem;
@@ -179,10 +181,10 @@
   cursor: pointer;
 }
 .item-cta span{
-  font-family: 'Open sans';
+  font-family: 'Fira sans';
 }
 .item-cta small{
-  font-family: 'Open sans';
+  font-family: 'Fira sans';
   font-size: 8px;
 }
 .contact-container{
@@ -203,6 +205,6 @@
   border-radius: 8px;
   padding: 0.5rem;
   margin: 8px;
-  font-family: 'Open sans';
+  font-family: 'Fira sans';
   border: solid 0.5px rgba(0,0,0,0.1);
 }
