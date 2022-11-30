@@ -15,6 +15,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import WhiteIcon from '../white-logo.png'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -158,22 +159,14 @@ export default function NavBarMUI() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{background: 'rgba(0,0,0,1)'}}>
+      <AppBar position="static" style={{background: 'rgba(0,0,0,0.8)'}}>
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
+            style={{fontFamily:'Fira sans', fontWeight: 'bold'}}
           >
             Sell3r
           </Typography>

@@ -9,15 +9,21 @@ import { app } from './firebase'
 import { redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Config } from './config'
+import Logo from './logo.png'
+import LinearProgress from '@mui/material/LinearProgress';
 
 export function Login(){
-    const [signInChosen, setSignInChosen] = React.useState(false)
+    const [signInChosen, setSignInChosen] = React.useState(true)
     const [password, setPassword] = React.useState('')
     const [email, setEmail] = React.useState('')
     const [userName, setUserName] = React.useState('')
+    const [disable,setBtnDisable] = React.useState(false)
+    const [linearProgress,setLinearProgress] = React.useState('none')
     const navigate = useNavigate();
  
     function signUp(email,password){
+        setLinearProgress('block')
+        setBtnDisable(true)
         const auth = getAuth(app);
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -37,6 +43,10 @@ export function Login(){
             .catch(error => {
                 console.error(error)
             })
+            .finally(() => {
+                setLinearProgress('none')
+                setBtnDisable(false)
+            })
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -46,6 +56,8 @@ export function Login(){
     }
 
     function signIn(email,password){
+        setLinearProgress('block')
+        setBtnDisable(true)
         const auth = getAuth(app);
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -67,7 +79,11 @@ export function Login(){
             const errorCode = error.code;
             const errorMessage = error.message;
             console.log('failed to sign in with error ', errorMessage)
-        });
+        })
+        .finally(() => {
+            setLinearProgress('none')
+            setBtnDisable(false)
+        })
     }
     return (
         <div style={{
@@ -79,10 +95,18 @@ export function Login(){
             backgroundPosition: 'center',
             display: 'grid'
         }}>
+            <div style={{
+                position: 'absolute',
+                top: '1rem',
+                left: '0.5rem'
+            }}>
+                <img src={Logo} width='48px' height='48px' />
+            </div>
             {
                 signInChosen
                 ?
                 <form className='auth-inner'>
+                <LinearProgress style={{display: linearProgress}} />
                 <h3>Sign In to Sell3r</h3>
                 <div className="mb-3">
                 <label>Email address</label>
@@ -120,6 +144,7 @@ export function Login(){
                 </div>
                 <div className="d-grid">
                 <button 
+                    disabled={disable}
                     className="btn btn-primary"
                     onClick={(e) => {
                         e.preventDefault()
@@ -130,7 +155,7 @@ export function Login(){
                         signIn(email,password)
                     }}
                     >
-                    Submit
+                    Log in
                 </button>
                 </div>
                 <p className="forgot-password text-right">
@@ -151,6 +176,7 @@ export function Login(){
                 </form>
                 :
                 <form className='auth-inner'>
+                    <LinearProgress style={{display: linearProgress}} />
                     <h3>Sign Up</h3>
                     <div className="mb-3">
                     <label>Username</label>
@@ -187,13 +213,14 @@ export function Login(){
                     </div>
                     <div className="d-grid">
                     <button
+                        disabled={disable}
                         className="btn btn-primary"
                         onClick={(e) => {
                             e.preventDefault()
                             signUp(email,password)
                         }}
                         >
-                        Sign Up
+                        Sign up
                     </button>
                     </div>
                     <p className="forgot-password text-right">
