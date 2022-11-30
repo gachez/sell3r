@@ -69,7 +69,7 @@ export function Login(){
             .then(res => {
                 console.log('User signed in ', res.data)
                 localStorage.setItem('user', JSON.stringify(res.data))
-                navigate("/admin")
+                navigate("/seller/shop")
             })
             .catch(err => {
                 console.log('failed to sign in ', err)
