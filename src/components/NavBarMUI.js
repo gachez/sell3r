@@ -134,17 +134,23 @@ export default function NavBarMUI() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
+      <MenuItem 
+        style={{fontFamily: 'Fira sans'}} 
+        onClick={handleMenuClose}>Dashboard</MenuItem>
+      <MenuItem 
+        style={{fontFamily: 'Fira sans'}} 
+        onClick={handleMenuClose}>Shop</MenuItem>
       <MenuItem>
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
           color="inherit"
         >
-          <Badge badgeContent={17} color="error">
+          <Badge badgeContent={1} color="error">
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        <p>Notifications</p>
+        <p>Orders</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
