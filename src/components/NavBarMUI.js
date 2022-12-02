@@ -98,6 +98,7 @@ export default function NavBarMUI() {
         vertical: 'top',
         horizontal: 'right',
       }}
+      style={{fontFamily: 'Fira sans'}}
       id={menuId}
       keepMounted
       transformOrigin={{
@@ -107,9 +108,12 @@ export default function NavBarMUI() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem>User: {signInUser}</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem 
+      style={{fontFamily: 'Fira sans'}}>User: {signInUser}</MenuItem>
+      <MenuItem 
+      style={{fontFamily: 'Fira sans'}} onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem 
+      style={{fontFamily: 'Fira sans'}} onClick={handleMenuClose}>Log out</MenuItem>
     </Menu>
   );
 
@@ -159,7 +163,7 @@ export default function NavBarMUI() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{background: 'rgba(0,0,0,0.8)'}}>
+      <AppBar position="static" style={{background: 'rgba(0,0,0,0.89)'}}>
         <Toolbar>
           <Typography
             variant="h6"

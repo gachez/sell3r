@@ -29,6 +29,7 @@ export function Login(){
         .then((userCredential) => {
             axios.post(Config.API_URI+'/users', {
                 createUserRequest:{
+                    username: userName,
                     email: email,
                     password: password
                 }

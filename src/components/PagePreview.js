@@ -1,7 +1,9 @@
 import React from 'react'
 import Plus from '../wplus.png'
+import '../Admin.css'
 import { Modal,Button, Form } from 'react-bootstrap'
 import {FileInput,ValidationForm} from 'react-bootstrap4-form-validation';
+import { LinearProgress } from '@mui/material';
 
 export function PagePreview(props){
   const productImgs = [
@@ -9,17 +11,15 @@ export function PagePreview(props){
     props.image2,
     props.image3
   ]  
-  const [showHeroUploadModal, setShowHeroUploadModal] = React.useState(false)
-  const [showImgUploadModal, setShowImgUploadModal] = React.useState(false)
 
-  const handleCloseUploadModal = () => setShowHeroUploadModal(false);
-  const handleShowUploadModal = () => setShowHeroUploadModal(true);
+  const handleCloseUploadModal = () => props.setShowHeroUploadModal(false);
+  const handleShowUploadModal = () => props.setShowHeroUploadModal(true);
 
-  const handleCloseImgModal = () => setShowImgUploadModal(false);
-  const handleShowImgModal = () => setShowImgUploadModal(true);
+  const handleCloseImgModal = () => props.setShowImgUploadModal(false);
+  const handleShowImgModal = () => props.setShowImgUploadModal(true);
 
     return(
-        <div className="Container" style={props.containerStyle.propstyle}>
+        <div className="Container" >
         <div className='hero' style={{
             height: props.hero===''?'5rem':'200px',
             maxHeight: '200px',
@@ -28,10 +28,12 @@ export function PagePreview(props){
             cursor:'pointer'
         }}
         onClick={() => {
-            handleShowUploadModal()
+          props.editProduct?handleShowUploadModal():console.log('nl')
         }}
         >
-            <img style={{margin:'auto'}} src={Plus} alt='add' width='24px' height='24px' />
+            <img style={{
+              margin:'auto',
+              display:props.editProduct?'block':'none'}} src={Plus} alt='add' width='24px' height='24px' />
         </div>
         <div className='desc-section'>
           <h1>{props.productName}</h1>
@@ -46,16 +48,15 @@ export function PagePreview(props){
               productImgs.map((img,i) => {
                 return(
                   <div onClick={() => {
-                    handleShowImgModal()
+                    props.editProduct?handleShowImgModal():console.log('nl')
                     props.setSelectedImgIndex(i+1)
-                    console.log('IMAGE INDEX ', (i+1))
                   }} className='img' style={{
                     display:'grid',
                     cursor:'pointer',
                     backgroundImage: img === ''?'none':`url(${img})`,
                     backgroundColor: img === ''?'rgba(0,0,0,0.6)':'none'
                     }}>
-                    <img alt='plus' src={Plus} style={{margin: 'auto'}} width='24px' height='24px' />
+                    <img alt='plus' src={Plus} style={{margin: 'auto',display:props.editProduct?'block':'none'}} width='24px' height='24px' />
                   </div>
                 )
               })
@@ -64,11 +65,12 @@ export function PagePreview(props){
         </div>
         <div className='reviews-section'>
         </div>
-        <Modal show={showHeroUploadModal} onHide={handleCloseUploadModal}>
+        <Modal show={props.showHeroUploadModal} onHide={handleCloseUploadModal}>
         <Modal.Header closeButton>
           <Modal.Title>Upload hero</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+        <LinearProgress style={{display: props.linearProgress}}/>  
         <ValidationForm>
           <div style={{fontSize:'12px'}}>Allowed files: jpg jpeg, png upto 5mb</div>
                         <FileInput
@@ -103,11 +105,12 @@ export function PagePreview(props){
           </Button>
         </Modal.Footer>
       </Modal>
-      <Modal show={showImgUploadModal} onHide={handleCloseUploadModal}>
+      <Modal show={props.showImgUploadModal} onHide={handleCloseUploadModal}>
         <Modal.Header closeButton>
           <Modal.Title>Upload images</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+        <LinearProgress style={{display:props.linearProgress}} />  
         <ValidationForm>
                         <div style={{fontSize:'12px'}}>Allowed files: jpg jpeg, png upto 5mb</div>
                         <FileInput
@@ -136,7 +139,6 @@ export function PagePreview(props){
           </Button>
           <Button variant="primary" onClick={() => {
             props.handleUpload()
-            handleCloseImgModal()
           }}>
             Upload
           </Button>
