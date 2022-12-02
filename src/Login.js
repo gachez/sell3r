@@ -88,7 +88,7 @@ export function Login(){
     }
     return (
         <div style={{
-            width: '100vw',
+            width: '100%',
             height: '100vh',
             backgroundImage: `url('https://wallpaperaccess.com/full/2482231.jpg')`,
             backgroundSize: 'cover',
