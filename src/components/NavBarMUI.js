@@ -174,18 +174,25 @@ export default function NavBarMUI() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{background: 'rgba(0,0,0,0.89)'}}>
+      <AppBar position="static" style={{background: '#112D4E'}}>
         <Toolbar>
         <div style={{
+          borderRadius:'50%'
             }}>
-                <img src={Logo} width='48px' height='48px' />
+                <img 
+                  style={{
+                    borderRadius:'50%'
+                  }} 
+                  src={Logo} 
+                  width='48px' 
+                  height='48px' alt='' />
             </div>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton
               size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
+              aria-label="show 5 new notifications"
+              color="#F9F7F7"
             >
               <Badge badgeContent={17} color="error">
                 <NotificationsIcon />
@@ -198,7 +205,7 @@ export default function NavBarMUI() {
               aria-controls={menuId}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
-              color="inherit"
+              color="#F9F7F7"
             >
               <AccountCircle />
             </IconButton>
@@ -210,7 +217,7 @@ export default function NavBarMUI() {
               aria-controls={mobileMenuId}
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
-              color="inherit"
+              color="#F9F7F7"
             >
               <MoreIcon />
             </IconButton>

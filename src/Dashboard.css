@@ -1,0 +1,32 @@
+.dashboard{
+    padding: 2rem;
+    background-color: #F9F7F7;
+    display: grid;
+    gap: '1rem'
+}
+.dashboard-content{
+    display: flex;
+}
+.dashboard-title{
+    color: '#112D4E';
+    font-family: 'Fira sans';
+    padding-bottom: 1rem;
+}
+.dashboard-stats{
+    display: flex;
+    justify-content: space-between;
+    height: auto;
+    width: 85vw;
+}
+.dashboard-stats div{
+    width: 20vw;
+    height: 30vh;
+    background-color: #3F72AF;
+    color: #F9F7F7;
+    padding: 1rem;
+}
+.dashboard-sales{
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+}
