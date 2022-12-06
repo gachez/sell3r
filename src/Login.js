@@ -86,6 +86,9 @@ export function Login(){
             setBtnDisable(false)
         })
     }
+    React.useEffect(() => {
+        localStorage.clear()
+    },[])
     return (
         <div style={{
             width: '100%',

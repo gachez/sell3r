@@ -16,6 +16,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import WhiteIcon from '../white-logo.png'
+import Logo from '../logo.png'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -134,6 +135,10 @@ export default function NavBarMUI() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
+    <div style={{
+            }}>
+                <img src={Logo} width='48px' height='48px' />
+            </div>
       <MenuItem 
         style={{fontFamily: 'Fira sans'}} 
         onClick={handleMenuClose}>Dashboard</MenuItem>
@@ -171,15 +176,10 @@ export default function NavBarMUI() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{background: 'rgba(0,0,0,0.89)'}}>
         <Toolbar>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-            style={{fontFamily:'Fira sans', fontWeight: 'bold'}}
-          >
-            Sell3r
-          </Typography>
+        <div style={{
+            }}>
+                <img src={Logo} width='48px' height='48px' />
+            </div>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton
