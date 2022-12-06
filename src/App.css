@@ -1,3 +1,7 @@
+.Container-page{
+  max-width: 540px;
+  height: 100vh;
+}
 .Container{
   max-width: 540px;
   height: 100vh;

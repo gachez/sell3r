@@ -55,7 +55,7 @@ function SalesPage() {
   )
   :
   (
-    <div className="Container">
+    <div className="Container-page">
       <div className='hero' style={{
         backgroundImage: `url(${product?.heroImg})`
       }}
