@@ -136,7 +136,7 @@ export default function NavBarMUI() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" style={{background: '#112D4E'}}>
+      <AppBar position="relative" style={{background: '#112D4E'}}>
         <Toolbar>
         <div style={{
           borderRadius:'50%'
