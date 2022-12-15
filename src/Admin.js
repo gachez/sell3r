@@ -281,6 +281,7 @@ function Admin() {
                         </div>
                         <OverlayTrigger
                             placement='top'
+                            show={false}
                             delay={2500}
                             overlay={
                             <Popover>
