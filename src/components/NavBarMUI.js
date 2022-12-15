@@ -74,7 +74,9 @@ export default function NavBarMUI() {
       <MenuItem 
       style={{fontFamily: 'Fira sans'}} onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem 
-      style={{fontFamily: 'Fira sans'}} onClick={handleMenuClose}>Log out</MenuItem>
+      style={{fontFamily: 'Fira sans'}} onClick={() => {
+        window.location.href='/'
+        handleMenuClose()}}>Log out</MenuItem>
     </Menu>
   );
 
