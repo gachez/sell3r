@@ -386,6 +386,7 @@ function Admin() {
                                         style={{
                                             display: !userSignedIn.shortLink ? 'block' : 'none'
                                         }}
+                                        disabled={product === undefined?true:false}
                                         onClick={() => {
                                             !userSignedIn.shortLink
                                             ? 
