@@ -5,6 +5,7 @@ import SalesPage from "./App";
 import { Dashboard } from "./Dashboard";
 import { Login } from "./Login";
 import { ProSidebarProvider } from 'react-pro-sidebar';
+import { Orders } from "./Orders";
 
 export default function App() {
   return (
@@ -18,6 +19,8 @@ export default function App() {
           <Route path="/seller/shop" element={<Admin/>}>
           </Route>
           <Route path="/dashboard" element={<Dashboard/>}>
+          </Route>
+          <Route path="/orders" element={<Orders/>}>
           </Route>
         </Routes>
       </BrowserRouter>

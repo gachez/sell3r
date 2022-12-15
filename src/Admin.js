@@ -12,10 +12,13 @@ import Link from './link.png'
 import Edit from './edit.png'
 import { Config } from './config';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
-import { height } from '@mui/system';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Popover from 'react-bootstrap/Popover';
+
+import { useNavigate } from "react-router-dom"
 
 function Admin() {
+    const navigate = useNavigate()
     const [productName, setProductName] = React.useState('Enter product name...')
     const [description, setDescription] = React.useState('Enter description...')
     const [price, setPrice] = React.useState(0)
@@ -266,164 +269,150 @@ function Admin() {
                         }}>{toastText}</Toast.Body>
                     </Toast>
                 </ToastContainer>
-                <Sidebar className='sidebar'
-                    backgroundColor='rgba(0,0,0,0.89)'
-                    rootStyles={{
-                        fontFamily: 'Fira sans',
-                        color: '#fff',
-                        height: '100vh',
-                        top:0
-                    }}
-                    width='10%'
-                    >
-                <Menu>
-                    <MenuItem id='dashboard' >Dashboard </MenuItem>
-                    <MenuItem id='shop' active >Shop </MenuItem>
-                    <MenuItem id='orders' >Orders </MenuItem>
-                </Menu>
-                </Sidebar>
                 <div
                  className='details-container'>
                     <div className='details-title-container'>
-                        <h3>Product details</h3>
-                        <img
-                            style={{ cursor: 'pointer' }}
+                        <h3>{product === undefined ? `Hey ${userSignedIn.username}, add your product details below` : 'Product details'}</h3>
+                        <button className={editProduct?'btn btn-danger':'btn btn-primary'}
+                            style={{ cursor: 'pointer',display: product===undefined?'none':'block' }}
                             onClick={() => {
                                 editProduct?setEditProduct(false):setEditProduct(true)
-                            }}
-                            alt='btn'
-                            src={editProduct?Cancel:Edit}
-                            width='24px'
-                            height='24px' />
-                    </div>
-                    <Form className='details-form' >
-                        <Form.Group className="mb-3" controlId="formBasicName">
-                            <Form.Label><b>Product name</b></Form.Label>
-                            {
-                                product === undefined || editProduct
-                                    ?
-                                    <Form.Control
-                                        type="text"
-                                        placeholder={product === undefined ? productName : product.name}
-                                        onChange={(e) => {
-                                            setProductName(e.target.value)
-                                        }}
-                                    />
-                                    :
-                                    <p className='form-text'
-                                    >{product === undefined ? productName : product.name}</p>
-                            }
-                        </Form.Group>
-
-                        <Form.Group className="mb-3" controlId="formBasicDescription">
-                            <Form.Label><b>Description</b></Form.Label>
-                            {
-                                product === undefined || editProduct
-                                    ?
-                                    <Form.Control
-                                        as="textarea"
-                                        rows={3}
-                                        placeholder={product === undefined ? description : product.description}
-                                        onChange={(e) => {
-                                            setDescription(e.target.value)
-                                        }}
-                                    />
-                                    :
-                                    <p style={{ fontFamily: 'Fira sans', paddingTop: '0.5rem', color: 'rgba(0,0,0,0.6' }}>{product === undefined ? description : product.description}</p>
-
-                            }
-
-                        </Form.Group>
-
-                        <Form.Group className="mb-3" controlId="formBasicPrice">
-                            <Form.Label><b>Price</b></Form.Label>
-                            {
-                                product === undefined || editProduct
-                                    ?
-                                    <Form.Control
-                                        placeholder={product === undefined ? price : product.price}
-                                        type="text"
-                                        onChange={(e) => {
-                                            setPrice(e.target.value)
-                                        }}
-                                    />
-                                    :
-                                    <p style={{ fontFamily: 'Fira sans', paddingTop: '0.5rem', color: 'rgba(0,0,0,0.6' }}>
-                                        {product === undefined ? price?.toLocaleString() : product.price?.toLocaleString()}</p>
-                            }
-
-                        </Form.Group>
-
-                        <Form.Group className="mb-3" controlId="formBasicCurrency">
-                            <Form.Label><b>Currency</b></Form.Label>
-                            {
-                                product === undefined || editProduct
-                                    ?
-                                    <Form.Control
-                                        placeholder={product === undefined ? selectedCurrency : product.currency}
-                                        type="text"
-                                        onChange={(e) => {
-                                            setCurrency(e.target.value)
-                                        }}
-                                    />
-                                    :
-                                    <p style={{ fontFamily: 'Fira sans', paddingTop: '0.5rem', color: 'rgba(0,0,0,0.6' }}>{product === undefined ? selectedCurrency : product.currency}</p>
-                            }
-                        </Form.Group>
-
-                        <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-                            <Button variant="success"
-                                style={{
-                                    display: product === undefined || editProduct ? 'block' : 'none'
-                                }}
-                                onClick={(e) => {
-                                    e.preventDefault()
-                                    editProduct ? editProductDetails() : saveProduct()
-                                }}
-                            >
-                                Save
-                            </Button>
-                            <Button
-                                variant="primary"
-                                style={{
-                                    display: !userSignedIn.shortLink ? 'block' : 'none'
-                                }}
-                                onClick={() => {
-                                    !userSignedIn.shortLink
-                                    ? 
-                                    generateURL(`${Config.BASE_URL}/sp/${userSignedIn?.username}/${userSignedIn?._id}`)
-                                    :
-                                    window.open(userSignedIn.shortLink)
-                                }}
-                            >
-                                {!userSignedIn.shortLink ? 'Publish site':'View page'}
-                            </Button>
-                        </div><br />
-                        <div
-                            style={{
-                                display: userSignedIn?.shortLink?.length > 0 || showLink ? 'block' : 'none',
-                                fontFamily: 'Fira sans'
-                            }}>
-                            <b>Shop Link:</b> <a target="_blank" href={userSignedIn?.shortLink?.length > 0 ? userSignedIn?.shortLink : generatedLink}>{userSignedIn?.shortLink?.length > 0 ? userSignedIn?.shortLink : generatedLink}</a>
-                            <br /><br /><small style={{ color: 'gray' }}>You can start selling your product by sharing the shop link widely. Happy selling!</small>
+                            }}>{editProduct?'Cancel':'Edit'}</button>
                         </div>
-                    </Form>
+                        <OverlayTrigger
+                            placement='top'
+                            show={product === undefined?true:false}
+                            defaultShow={product === undefined?true:false}
+                            delay={2500}
+                            overlay={
+                            <Popover>
+                            <Popover.Header as="h3">{`Sell3r tip`}</Popover.Header>
+                            <Popover.Body>
+                                <strong>All details entered here will be displayed in the product page once saved.<br /> You can check out the preview over here! 👉</strong>.
+                            </Popover.Body>
+                            </Popover>
+                        }
+                        >
+                            <Form className='details-form' >
+                                <Form.Group className="mb-3" controlId="formBasicName">
+                                    <Form.Label><b>Product name</b></Form.Label>
+                                    {
+                                        product === undefined || editProduct
+                                            ?
+                                            <Form.Control
+                                                type="text"
+                                                defaultValue={product === undefined ? productName : product.name}
+                                                placeholder={product === undefined ? productName : product.name}
+                                                onChange={(e) => {
+                                                    setProductName(e.target.value)
+                                                }}
+                                            />
+                                            :
+                                            <p className='form-text'
+                                            >{product === undefined ? productName : product.name}</p>
+                                    }
+                                </Form.Group>
 
+                                <Form.Group className="mb-3" controlId="formBasicDescription">
+                                    <Form.Label><b>Description</b></Form.Label>
+                                    {
+                                        product === undefined || editProduct
+                                            ?
+                                            <Form.Control
+                                                as="textarea"
+                                                rows={3}
+                                                placeholder={product === undefined ? description : product.description}
+                                                onChange={(e) => {
+                                                    setDescription(e.target.value)
+                                                }}
+                                            />
+                                            :
+                                            <p style={{ fontFamily: 'Fira sans', paddingTop: '0.5rem', color: 'rgba(0,0,0,0.6' }}>{product === undefined ? description : product.description}</p>
+
+                                    }
+
+                                </Form.Group>
+
+                                <Form.Group className="mb-3" controlId="formBasicPrice">
+                                    <Form.Label><b>Price</b></Form.Label>
+                                    {
+                                        product === undefined || editProduct
+                                            ?
+                                            <Form.Control
+                                                placeholder={product === undefined ? price : product.price}
+                                                type="text"
+                                                onChange={(e) => {
+                                                    setPrice(e.target.value)
+                                                }}
+                                            />
+                                            :
+                                            <p style={{ fontFamily: 'Fira sans', paddingTop: '0.5rem', color: 'rgba(0,0,0,0.6' }}>
+                                                {product === undefined ? price?.toLocaleString() : product.price?.toLocaleString()}</p>
+                                    }
+
+                                </Form.Group>
+
+                                <Form.Group className="mb-3" controlId="formBasicCurrency">
+                                    <Form.Label><b>Currency</b></Form.Label>
+                                    {
+                                        product === undefined || editProduct
+                                            ?
+                                            <Form.Control
+                                                placeholder={product === undefined ? selectedCurrency : product.currency}
+                                                type="text"
+                                                onChange={(e) => {
+                                                    setCurrency(e.target.value)
+                                                }}
+                                            />
+                                            :
+                                            <p style={{ fontFamily: 'Fira sans', paddingTop: '0.5rem', color: 'rgba(0,0,0,0.6' }}>{product === undefined ? selectedCurrency : product.currency}</p>
+                                    }
+                                </Form.Group>
+
+                                <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
+                                    <Button variant="success"
+                                        style={{
+                                            display: product === undefined || editProduct ? 'block' : 'none'
+                                        }}
+                                        onClick={(e) => {
+                                            e.preventDefault()
+                                            editProduct ? editProductDetails() : saveProduct()
+                                        }}
+                                    >
+                                        Save product
+                                    </Button>
+                                    <Button
+                                        variant="primary"
+                                        style={{
+                                            display: !userSignedIn.shortLink ? 'block' : 'none'
+                                        }}
+                                        onClick={() => {
+                                            !userSignedIn.shortLink
+                                            ? 
+                                            generateURL(`${Config.BASE_URL}/sp/${userSignedIn?.username}/${userSignedIn?._id}`)
+                                            :
+                                            window.open(userSignedIn.shortLink)
+                                        }}
+                                    >
+                                        {!userSignedIn.shortLink ? 'Publish site':'View page'}
+                                    </Button>
+                                </div><br />
+                                <div
+                                    style={{
+                                        display: userSignedIn?.shortLink?.length > 0 || showLink ? 'block' : 'none',
+                                        fontFamily: 'Fira sans'
+                                    }}>
+                                    <b>Shop Link:</b> <a target="_blank" href={userSignedIn?.shortLink?.length > 0 ? userSignedIn?.shortLink : generatedLink}>{userSignedIn?.shortLink?.length > 0 ? userSignedIn?.shortLink : generatedLink}</a>
+                                    <br /><br /><small style={{ color: 'gray' }}>You can start selling your product by sharing the shop link widely. Happy selling!</small>
+                                </div>
+                            </Form>
+                        </OverlayTrigger>
                 </div>
                 <div className='preview-container'>
                     <div className='preview-title-container' >
                         <h3 style={{
                             textAlign: 'left',
                         }}>Preview</h3>
-                        <a target="_blank" href={userSignedIn?.shortLink?.length > 0 ? userSignedIn?.shortLink : generatedLink}>
-                            <img
-                                style={{ cursor: 'pointer' }}
-                                onClick={() => {
-
-                                }}
-                                alt='link' src={Link} width='24px' height='24px' />
-                        </a>
-
                     </div>
                     <PagePreview
                         productName={productName}

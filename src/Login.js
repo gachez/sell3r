@@ -1,8 +1,6 @@
 import React from 'react'
-import { Button, Form } from 'react-bootstrap'
 import './Login.css'
-import Google from './google.png'
-import Facebook from './facebook.png'
+import { Form, Button, Toast, ToastContainer } from 'react-bootstrap';
 import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
 import axios from 'axios'
 import { app } from './firebase'
@@ -19,6 +17,9 @@ export function Login(){
     const [userName, setUserName] = React.useState('')
     const [disable,setBtnDisable] = React.useState(false)
     const [linearProgress,setLinearProgress] = React.useState('none')
+    const [showToast, setShowToast] = React.useState('none')
+    const [toastText, setToastText] = React.useState('')
+    const [toastColor, setToastColor] = React.useState('')
     const navigate = useNavigate();
  
     function signUp(email,password){
@@ -37,12 +38,17 @@ export function Login(){
             .then(
                 res => {
                     const user = userCredential.user;
-                    console.log(res.data, 'succesfully signed up ', user)
+                    setShowToast('block')
+                    setToastText('Succesfully created account')
+                    setToastColor('#198754')
                     setSignInChosen(true)
                 }
             )
             .catch(error => {
                 console.error(error)
+                setShowToast('block')
+                setToastText('Failed to create user')
+                setToastColor('red')
             })
             .finally(() => {
                 setLinearProgress('none')
@@ -53,6 +59,9 @@ export function Login(){
             const errorCode = error.code;
             const errorMessage = error.message;
             console.log(errorCode, errorMessage)
+            setShowToast('block')
+            setToastText(errorMessage.slice(10))
+            setToastColor('red')
         });
     }
 
@@ -68,18 +77,26 @@ export function Login(){
                 }
             })
             .then(res => {
-                console.log('User signed in ', res.data)
                 localStorage.setItem('user', JSON.stringify(res.data))
+                setShowToast('block')
+                setToastText('Succesfully signed in')
+                setToastColor('#198754')
                 navigate("/seller/shop")
             })
             .catch(err => {
                 console.log('failed to sign in ', err)
+                setShowToast('block')
+                setToastText('Failed to sign in')
+                setToastColor('red')
             })
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
             console.log('failed to sign in with error ', errorMessage)
+            setShowToast('block')
+            setToastText(errorMessage.slice(10))
+            setToastColor('red')
         })
         .finally(() => {
             setLinearProgress('none')
@@ -106,6 +123,17 @@ export function Login(){
             }}>
                 <img src={Logo} width='48px' height='48px' />
             </div>
+            <ToastContainer className="p-3  animate__animated animate__slideInRight" position='top-end'>
+                    <Toast style={{
+                        backgroundColor: toastColor,
+                        display: showToast
+                    }}>
+                        <Toast.Body style={{
+                            color: '#fff',
+                            fontWeight: 400
+                        }}>{toastText}</Toast.Body>
+                    </Toast>
+                </ToastContainer>
             {
                 signInChosen
                 ?

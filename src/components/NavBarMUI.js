@@ -18,46 +18,6 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import WhiteIcon from '../white-logo.png'
 import Logo from '../logo.png'
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-}));
-
 export default function NavBarMUI() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -174,7 +134,7 @@ export default function NavBarMUI() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{background: '#112D4E'}}>
+      <AppBar position="fixed" style={{background: '#112D4E'}}>
         <Toolbar>
         <div style={{
           borderRadius:'50%'
@@ -188,11 +148,14 @@ export default function NavBarMUI() {
                   height='48px' alt='' />
             </div>
           <Box sx={{ flexGrow: 1 }} />
+          <MenuItem>Dashboard</MenuItem>
+          <MenuItem>Product</MenuItem>
+          <MenuItem>Orders</MenuItem>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton
               size="large"
               aria-label="show 5 new notifications"
-              color="#F9F7F7"
+              color="#FFF"
             >
               <Badge badgeContent={17} color="error">
                 <NotificationsIcon />
@@ -205,7 +168,7 @@ export default function NavBarMUI() {
               aria-controls={menuId}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
-              color="#F9F7F7"
+              color="#FFF"
             >
               <AccountCircle />
             </IconButton>
@@ -217,7 +180,7 @@ export default function NavBarMUI() {
               aria-controls={mobileMenuId}
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
-              color="#F9F7F7"
+              color="#FFF"
             >
               <MoreIcon />
             </IconButton>

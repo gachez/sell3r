@@ -18,8 +18,10 @@ import TableHead from '@mui/material/TableHead'
 import TablePagination from '@mui/material/TablePagination'
 import TableRow from '@mui/material/TableRow'
 import BarGraph from './components/BarGraph'
+import { useNavigate } from "react-router-dom"
 
 export function Dashboard(){
+    const navigate = useNavigate();
     const columns = [
         { id: 'productname', label: 'Product name', minWidth: 170 },
         { id: 'price', label: 'Price', minWidth: 100 },
@@ -58,27 +60,9 @@ export function Dashboard(){
                     <LinearProgress style={{ display: 'block' }} />
                 </Box>
                 <div className='dashboard-content'>
-                <Sidebar className='sidebar'
-                    backgroundColor='#112D4E'
-                    rootStyles={{
-                        fontFamily: 'Fira sans',
-                        color: '#F9F7F7',
-                        height: 'auto',
-                        top:0,
-                        position:'sticky',
-                        left: 0
-                    }}
-                    width='10%'
-                    >
-                <Menu>
-                    <MenuItem id='dashboard' >Dashboard </MenuItem>
-                    <MenuItem id='shop' active >Shop </MenuItem>
-                    <MenuItem id='orders' >Orders </MenuItem>
-                </Menu>
-                </Sidebar>
                 <div className='dashboard'>
                     <div className='dashboard-title'>
-                        <h3>Dashboard</h3>
+                        <h3>Welcome back, Admin</h3>
                     </div>
                     <div className='dashboard-stats' >
                         <div style={{
@@ -260,7 +244,7 @@ export function Dashboard(){
                             onRowsPerPageChange={handleChangeRowsPerPage}
                         />
                         </Paper>
-                        <div style={{width:'50%'}}>
+                        <div style={{width:'50%',marginLeft:'1rem'}}>
                                 <BarGraph />
                         </div>
                     </div>
