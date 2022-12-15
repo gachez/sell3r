@@ -25,8 +25,6 @@ export function PagePreview(props){
         <div className="Container" >
           <OverlayTrigger
             placement='left'
-            defaultShow={props.product === undefined?true:false}
-            show={props.product === undefined?true:false}
             delay={2500}
             overlay={
             <Popover>

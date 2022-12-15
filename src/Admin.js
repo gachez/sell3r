@@ -281,8 +281,6 @@ function Admin() {
                         </div>
                         <OverlayTrigger
                             placement='top'
-                            show={product === undefined?true:false}
-                            defaultShow={product === undefined?true:false}
                             delay={2500}
                             overlay={
                             <Popover>
