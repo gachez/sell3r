@@ -41,7 +41,7 @@ export function Login(){
                     setShowToast('block')
                     setToastText('Succesfully created account')
                     setToastColor('#198754')
-                    setSignInChosen(true)
+                    navigate("/seller/shop")
                 }
             )
             .catch(error => {
